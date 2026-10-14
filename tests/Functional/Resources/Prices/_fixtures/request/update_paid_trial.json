@@ -1,0 +1,11 @@
+{
+  "trial_period": {
+    "interval": "year",
+    "frequency": 1,
+    "requires_payment_method": true,
+    "unit_price": {
+      "amount": "5000",
+      "currency_code": "USD"
+    }
+  }
+}

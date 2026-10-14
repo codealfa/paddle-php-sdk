@@ -9,6 +9,7 @@ use Paddle\SDK\Entities\Shared\CustomData;
 use Paddle\SDK\Entities\Shared\Interval;
 use Paddle\SDK\Entities\Shared\Money;
 use Paddle\SDK\Entities\Shared\PriceQuantity;
+use Paddle\SDK\Entities\Shared\PriceTrialPeriod;
 use Paddle\SDK\Entities\Shared\Status;
 use Paddle\SDK\Entities\Shared\TaxCategory;
 use Paddle\SDK\Entities\Shared\TimePeriod;
@@ -85,7 +86,18 @@ try {
                 new Money('5000', CurrencyCode::USD()),
             ),
         ],
-        trialPeriod: new TimePeriod(Interval::Week(), 1),
+        trialPeriod: new PriceTrialPeriod(
+            interval: Interval::Week(),
+            frequency: 1,
+            requiresPaymentMethod: true,
+            unitPrice: new Money('100', CurrencyCode::GBP()),
+            unitPriceOverrides: [
+                new UnitPriceOverride(
+                    [CountryCode::CA(), CountryCode::US()],
+                    new Money('500', CurrencyCode::USD()),
+                ),
+            ],
+        ),
         billingCycle: new TimePeriod(Interval::Year(), 1),
         quantity: new PriceQuantity(1, 1),
         customData: new CustomData(['foo' => 'bar']),
