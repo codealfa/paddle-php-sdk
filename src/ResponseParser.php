@@ -63,7 +63,9 @@ class ResponseParser
         $retryAfterHeader = $this->response->getHeader('Retry-After')[0] ?? null;
         $retryAfter = $retryAfterHeader ? intval($retryAfterHeader) : null;
 
-        throw $exceptionClass::fromErrorData($this->body['error'], $retryAfter);
+        $requestId = $this->body['meta']['request_id'] ?? null;
+
+        throw $exceptionClass::fromErrorData($this->body['error'], $retryAfter, is_string($requestId) ? $requestId : null);
     }
 
     /**

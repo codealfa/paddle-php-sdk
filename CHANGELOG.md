@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx&utm_medium=paddle-php-sdk) for information about changes to the Paddle Billing platform, the Paddle API, and other developer tools.
 
+## [Unreleased]
+
+### Added
+
+- `ApiError::$requestId` holds the `request_id` Paddle returns in `meta` with every error, which Paddle's support asks for when looking into a failed request
+
 ## [1.18.0] - 2026-09-10
 
 ### Added
