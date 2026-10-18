@@ -75,4 +75,33 @@ class ResponseParserTest extends TestCase
             throw $e; // rethrow to satisfy expectException
         }
     }
+
+    /** @test */
+    public function it_keeps_the_request_id_of_an_api_error(): void
+    {
+        $responseBody = json_encode([
+            'error' => [
+                'type' => 'request_error',
+                'code' => 'conflict',
+                'detail' => 'Request conflicts with another change.',
+                'documentation_url' => 'https://developer.paddle.com/errors/shared/conflict',
+            ],
+            'meta' => ['request_id' => 'f00bd6f0-5d2c-4d4f-b0c4-1d8e2b5a8a11'],
+        ]);
+
+        /** @var ResponseInterface $response */
+        $response = $this->createMock(ResponseInterface::class);
+        $stream = $this->createMock(StreamInterface::class);
+        $stream->method('__toString')->willReturn($responseBody);
+        $response->method('getBody')->willReturn($stream);
+        $response->method('getStatusCode')->willReturn(409);
+        $response->method('getHeader')->with('Retry-After')->willReturn([]);
+
+        try {
+            new ResponseParser($response);
+            self::fail('No ApiError was thrown');
+        } catch (ApiError $e) {
+            self::assertSame('f00bd6f0-5d2c-4d4f-b0c4-1d8e2b5a8a11', $e->requestId);
+        }
+    }
 }

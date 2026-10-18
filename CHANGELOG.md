@@ -13,6 +13,7 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
 - Added paid trials support: `requiresPaymentMethod`, `unitPrice` and `unitPriceOverrides` on a price's trial period. See [related changelog](https://developer.paddle.com/changelog/2026/paid-trials?utm_source=dx&utm_medium=paddle-php-sdk)
   - `PriceTrialPeriod` extends `TimePeriod`: pass it as `trialPeriod` when creating or updating a price (or a non-catalog price), and prices, subscription items, transaction previews and notifications now read their trial period as a `PriceTrialPeriod`
   - A trial period read from a response without these fields is a free trial that requires a payment method
+- `ApiError::$requestId` holds the `request_id` Paddle returns in `meta` with every error, which Paddle's support asks for when looking into a failed request
 
 ### Fixed
 

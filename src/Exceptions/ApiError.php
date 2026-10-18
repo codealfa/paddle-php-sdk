@@ -13,6 +13,9 @@ class ApiError extends \Exception implements ClientExceptionInterface
 
     public int|null $retryAfter = null;
 
+    /** The request_id Paddle gives every answer: Paddle's support finds the request by it */
+    public string|null $requestId = null;
+
     final public function __construct(
         public string $type,
         public string $errorCode,
@@ -25,7 +28,7 @@ class ApiError extends \Exception implements ClientExceptionInterface
         parent::__construct($this->detail);
     }
 
-    public static function fromErrorData(array $error, int|null $retryAfter = null): static
+    public static function fromErrorData(array $error, int|null $retryAfter = null, string|null $requestId = null): static
     {
         $apiError = new static(
             $error['type'],
@@ -39,6 +42,7 @@ class ApiError extends \Exception implements ClientExceptionInterface
         );
 
         $apiError->retryAfter = $retryAfter;
+        $apiError->requestId = $requestId;
 
         return $apiError;
     }
