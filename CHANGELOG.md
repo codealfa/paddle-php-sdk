@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx&utm_medium=paddle-php-sdk) for information about changes to the Paddle Billing platform, the Paddle API, and other developer tools.
 
+## [Unreleased]
+
+### Added
+
+- Added paid trials support: `requiresPaymentMethod`, `unitPrice` and `unitPriceOverrides` on a price's trial period. See [related changelog](https://developer.paddle.com/changelog/2026/paid-trials?utm_source=dx&utm_medium=paddle-php-sdk)
+  - `PriceTrialPeriod` extends `TimePeriod`: pass it as `trialPeriod` when creating or updating a price (or a non-catalog price), and prices, subscription items, transaction previews and notifications now read their trial period as a `PriceTrialPeriod`
+  - A trial period read from a response without these fields is a free trial that requires a payment method
+
 ## [1.18.0] - 2026-09-10
 
 ### Added

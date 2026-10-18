@@ -1,0 +1,32 @@
+{
+  "description": "Annual plan with an introductory first year",
+  "product_id": "pro_01gsz4t5hdjse780zja8vvr7jg",
+  "unit_price": {
+    "amount": "10000",
+    "currency_code": "USD"
+  },
+  "billing_cycle": {
+    "interval": "year",
+    "frequency": 1
+  },
+  "trial_period": {
+    "interval": "year",
+    "frequency": 1,
+    "requires_payment_method": true,
+    "unit_price": {
+      "amount": "5000",
+      "currency_code": "USD"
+    },
+    "unit_price_overrides": [
+      {
+        "country_codes": [
+          "GB"
+        ],
+        "unit_price": {
+          "amount": "4000",
+          "currency_code": "GBP"
+        }
+      }
+    ]
+  }
+}

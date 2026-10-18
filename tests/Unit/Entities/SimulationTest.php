@@ -79,4 +79,36 @@ class SimulationTest extends TestCase
     {
         return EventDataProvider::events();
     }
+
+    /**
+     * @test
+     */
+    public function it_keeps_a_paid_trial_period_in_a_simulation_payload(): void
+    {
+        $payloadData = self::readJsonFixture('notification/entity/price.created');
+        $payloadData['trial_period'] = [
+            'interval' => 'year',
+            'frequency' => 1,
+            'requires_payment_method' => true,
+            'unit_price' => ['amount' => '5000', 'currency_code' => 'USD'],
+            'unit_price_overrides' => [
+                ['country_codes' => ['GB'], 'unit_price' => ['amount' => '4000', 'currency_code' => 'GBP']],
+            ],
+        ];
+
+        $simulation = Simulation::from([
+            'id' => 'ntfsim_01j82g2mggsgjpb3mjg0xq6p5k',
+            'notification_setting_id' => 'ntfset_01j82d983j814ypzx7m1fw2jpz',
+            'name' => 'Simulation for price.created',
+            'type' => 'price.created',
+            'created_at' => '2023-08-21T11:57:47.390028Z',
+            'updated_at' => '2023-08-21T11:57:47.390028Z',
+            'status' => 'active',
+            'payload' => $payloadData,
+        ]);
+
+        $decodedData = json_decode(JsonEncoder::default()->encode($simulation->payload), true);
+
+        self::assertEquals($payloadData['trial_period'], $decodedData['trial_period']);
+    }
 }
