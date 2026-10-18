@@ -14,6 +14,10 @@ Check our main [developer changelog](https://developer.paddle.com/?utm_source=dx
   - `PriceTrialPeriod` extends `TimePeriod`: pass it as `trialPeriod` when creating or updating a price (or a non-catalog price), and prices, subscription items, transaction previews and notifications now read their trial period as a `PriceTrialPeriod`
   - A trial period read from a response without these fields is a free trial that requires a payment method
 
+### Fixed
+
+- `Event::fromRequest()` passed `JSON_THROW_ON_ERROR` to `json_decode()` as its depth, so a request body that isn't valid JSON failed with a `TypeError` instead of a `JsonException`
+
 ## [1.18.0] - 2026-09-10
 
 ### Added
